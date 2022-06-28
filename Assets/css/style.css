@@ -1,0 +1,26 @@
+
+body, html {
+    padding: 0;
+    margin: 0;
+
+}
+a {
+    text-decoration: none;
+}
+header {
+    background-color: blue;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+main {
+    background-color: blueviolet;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+section {
+    background-color: brown;
+    padding: 10px;
+}
