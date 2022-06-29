@@ -1,6 +1,9 @@
 
 //create timer counter
-var secondsLeft = 75; 
+var secondsLeft = 30; 
+
+// create score counter
+var score = 0;
 
 //get html element 
 var timerEl = document.querySelector("#timer")  
@@ -22,6 +25,9 @@ var btn1El =  document.querySelector("#button-1")
 var btn2El =  document.querySelector("#button-2")
 var btn3El =  document.querySelector("#button-3")
 var btn4El =  document.querySelector("#button-4")
+
+// grab form element
+var formEl = document.querySelector("#submit-form")
 
 
 function timerSet(){ // a function that decrements the timer counter and writes to the timer element 
@@ -69,9 +75,18 @@ var question3 = {
     displayStatus: "display: block",
 }
 
+var completedPage = {
+    questionText: "All Done!" ,
+    A: "1. JavaScript",
+    B: "2. terminal/bash",
+    C: "3. for loops",
+    D: "4. console.log",
+    p: `Error`, 
+    displayStatus: "display: none",
+}
 
-
-var qArray = [question1, question2, question3]; //create array of question objects
+var qArray = [question1, question2, question3, ]; //create array of question objects
+var qArray = [question1, question2, question3, completedPage ]; //create array of question objects
 var qArrayIndex = 0; //init index to 0
 
 function alterQCard() { // alter the contents of the q card
@@ -89,9 +104,21 @@ function alterQCard() { // alter the contents of the q card
 
 //set event listener for start button
 cardEl.addEventListener("click", function (event){
-    alterQCard()
 
-    if (qArrayIndex < qArray.length-1){
-        qArrayIndex++
+    if (event.target === "button") {
+        console.log("yaya")
+    }
+    alterQCard()
+    if (qArrayIndex < qArray.length-1){ // if it is not the last index in the qArray add one to the index
+       qArrayIndex++
+
+    } else{  // if it is the last index in the qArray
+
+        score = secondsLeft //assign a score variable
+        completedPage.p = `Your final score is: ${score}` //alter object to reflect this
+        pEl.textContent = qArray[qArrayIndex].p; // update p element
+        formEl.style = "display: block;" // reveal form element
+
+
     }
 })

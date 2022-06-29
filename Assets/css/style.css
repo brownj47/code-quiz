@@ -28,16 +28,6 @@ section {
     padding: 10px;
 }
 
-.mult-choice-opt {
-    display: block;
-}
-
-#button-2 {
-    display: none;
-}
-#button-3 {
-    display: none;
-}
-#button-4 {
+#button-2, #button-3, #button-4, #submit-form{ /* hide elements at page load */
     display: none;
 }
