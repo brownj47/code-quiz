@@ -12,17 +12,20 @@
     <header> 
         <p><a href="#">View High Scores</a></p>
         <h1>Code Quiz</h1>
-        <p>Time: 0s</p>
+        <p id="timer">Time left: 75 seconds</p>
     </header>
 
     <main>
         <section id="q-card">
-            <h2>What is your favorite Color?</h2>
-            <button id="button-1">Option A</button>
-            <button id="button-2">Option B</button>
-            <button id="button-3"> Option C</button>
-            <button id="button-4">Option D</button>
+            <h2 id="question">What is your favorite Color?</h2>
+            <p id="q-subtext"></p>
+
+            <button class="mult-choice-opt"id="button-1">Option A</button>
+            <button class="mult-choice-opt"id="button-2">Option B</button>
+            <button class="mult-choice-opt"id="button-3">Option C</button>
+            <button class="mult-choice-opt"id="button-4">Option D</button>
         </section>
     </main>
+    <script src="./Assets/js/logic.js"></script>
 </body>
 </html>

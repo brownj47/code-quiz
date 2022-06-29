@@ -2,13 +2,13 @@
 body, html {
     padding: 0;
     margin: 0;
-
+    font-family: sans-serif;
 }
 a {
     text-decoration: none;
 }
 header {
-    background-color: blue;
+    background-color: rgb(98, 98, 222);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -21,6 +21,10 @@ main {
     align-items: center;
 }
 section {
-    background-color: brown;
+    background-color: rgb(213, 194, 194);
     padding: 10px;
+}
+
+.mult-choice-opt {
+    display: block;
 }
