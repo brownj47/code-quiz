@@ -20,6 +20,9 @@ main {
     justify-content: center;
     align-items: center;
 }
+#q-card {
+    max-width: 50%;
+}
 section {
     background-color: rgb(213, 194, 194);
     padding: 10px;
@@ -27,4 +30,14 @@ section {
 
 .mult-choice-opt {
     display: block;
+}
+
+#button-2 {
+    display: none;
+}
+#button-3 {
+    display: none;
+}
+#button-4 {
+    display: none;
 }
