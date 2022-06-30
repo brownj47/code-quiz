@@ -38,8 +38,13 @@ section {
     display: none;
 }
 
+#wr-text {
+    padding: 5px;
+    border-radius: 2px;
+}
 
-@media screen and (max-width : 560px) {
+
+@media screen and (max-width : 760px) {
     header {
         flex-direction: column;
     }

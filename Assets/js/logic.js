@@ -18,8 +18,10 @@ var qHeadEl =  document.querySelector("#q-header")
 //grab h2 element
 var qEl =  document.querySelector("#question") 
 
-// grab p element
-var pEl = document.querySelector("#q-subtext") 
+// grab p elements
+var subTextEl = document.querySelector("#q-subtext") 
+var rightWrongEl = document.querySelector("#wr-text")
+
 
 // grab q-card element
 var cardEl =  document.querySelector("#q-card") 
@@ -64,7 +66,7 @@ function timerSet(){ // a function that decrements the timer counter and writes 
             score = secondsLeft
             qEl.textContent = "All Done! You ran out out time/points"
             completedPage.p = `Your final score is: ${score}` //alter object to reflect this
-            pEl.textContent = completedPage.p; // update p element
+            subTextEl.textContent = completedPage.p; // update p element
             cardEl.style = "display: none;" // hide buttons
             formEl.style = "display: block;" // reveal form element
         }
@@ -73,6 +75,12 @@ function timerSet(){ // a function that decrements the timer counter and writes 
 }
 function stopTimer(){
     clearInterval(timer)
+}
+//make timer to have wrong text disappear
+function timeText() {
+    var timeLeft = setTimeout(function(){
+        rightWrongEl.style =  "display: none;"
+    }, 1000)
 }
 
 // create question objects
@@ -127,7 +135,7 @@ function alterQCard() { // alter the contents of the q card
     btn2El.textContent = qArray[qArrayIndex].B;
     btn3El.textContent = qArray[qArrayIndex].C;
     btn4El.textContent = qArray[qArrayIndex].D;
-    pEl.textContent =  qArray[qArrayIndex].p;
+    subTextEl.textContent =  qArray[qArrayIndex].p;
     cardEl.setAttribute("style", qArray[qArrayIndex].displayStatus)
 }
 
@@ -152,9 +160,14 @@ cardEl.addEventListener("click", function (event){
         console.log(qArrayIndex-1)
         if (event.target.matches(qArray[qArrayIndex-1].rightAnswer)){ //subtract points for a wrong answer
             console.log("right answer")
+            rightWrongEl.textContent =  "Right!"
+            rightWrongEl.style =  "background-color: green;"
+            timeText()
         } else {
-            secondsLeft = secondsLeft -5
-            
+            secondsLeft = secondsLeft -10
+            rightWrongEl.textContent =  "Wrong :("
+            rightWrongEl.style =  "background-color: red;"
+            timeText()
         }
 
         if (qArrayIndex < qArray.length-1){ // if it is not the last index in the qArray add one to the index
@@ -162,7 +175,7 @@ cardEl.addEventListener("click", function (event){
         } else{  // if it is the last index in the qArray
             score = secondsLeft //assign a score variable
             completedPage.p = `Your final score is: ${score}` //alter object to reflect this
-            pEl.textContent = qArray[qArrayIndex].p; // update p element
+            subTextEl.textContent = qArray[qArrayIndex].p; // update p element
             formEl.style = "display: block;" // reveal form element
             stopTimer()
         }
@@ -196,9 +209,10 @@ subBtn.addEventListener("click", function (event) {
     event.preventDefault();
     
     qEl.textContent = "High Scores:"; // set h2 el
-    pEl.textContent = ""; //empty p el
+    subTextEl.textContent = ""; //empty p el
     formEl.style = "display: none;"; // hide form element
     hiScrEl.style = "display: block;";// reveal high score card
+    rightWrongEl.style =  "display: none;"
 
     var storedScores =JSON.parse(localStorage.getItem("highScores")) //pull from local storage, if there is something there, set the array to it
     if (storedScores !==null){
@@ -225,7 +239,7 @@ goBackBtn.addEventListener("click", function(){
     qArrayIndex = 0;
     secondsLeft = timerResetVal;
     hiScrEl.style = "display: none;";
-    pEl.textContent = " Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by 10s";
+    subTextEl.textContent = " Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by 10s";
     qEl.textContent = "Coding Quiz Challenge";
     timerEl.style = "display: block;";
     strtBtn.style = "display: inline-block;";
@@ -233,7 +247,7 @@ goBackBtn.addEventListener("click", function(){
 
 highScoreLink.addEventListener("click", function(){
     qEl.textContent = "High Scores:"; // set h2 el
-    pEl.textContent = ""; //empty p el
+    subTextEl.textContent = ""; //empty p el
     formEl.style = "display: none;"; // hide form element
     hiScrEl.style = "display: block;";// reveal high score card
     strtBtn.style =  "display:none;"
