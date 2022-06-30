@@ -161,6 +161,10 @@ function setScoreList(){
 }
 
 function renderScoreList(){
+    var listItems =  document.querySelectorAll(".score-item") //grab all lis
+    for (i=0; i < listItems.length; i++){ //remove the li elements from the page
+        listItems[i].remove()
+    }
     for (i=0; i < highScores.length; i++) { //create lis
         var scoreEl = document.createElement("li")
         scoreEl.textContent = highScores[i]
@@ -195,11 +199,8 @@ subBtn.addEventListener("click", function (event) {
 
 clearBtn.addEventListener("click", function() { //clear highscores
     highScores = [] // make highscores empty
-    setScoreList() //clear local storage
-    var listItems =  document.querySelectorAll(".score-item") //grab all lis
-    for (i=0; i < listItems.length; i++){ //remove the li elements from the page
-        listItems[i].remove()
-    }
+    setScoreList()
+    renderScoreList()
 })
 
 goBackBtn.addEventListener("click", function(){
