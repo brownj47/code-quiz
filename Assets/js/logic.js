@@ -76,7 +76,7 @@ var question1 = {
     D: "4. numbers",
     p: "", 
     displayStatus: "display: block",
-    rightAnswer : "button-3"
+    rightAnswer : "#button-3"
 }
 
 var question2 = {
@@ -87,7 +87,7 @@ var question2 = {
     D: "4. square brackets",
     p: "", 
     displayStatus: "display: block",
-    rightAnswer : "button-2"
+    rightAnswer : "#button-2"
 }
 var question3 = {
     questionText: "A very useful tool used during development for printing content to the debugger is: " ,
@@ -97,7 +97,7 @@ var question3 = {
     D: "4. console.log",
     p: "", 
     displayStatus: "display: block",
-    rightAnswer : "button-4"
+    rightAnswer : "#button-4",
 }
 
 var completedPage = {
@@ -109,7 +109,7 @@ var completedPage = {
     p: `Error`, 
     displayStatus: "display: none",
 }
-// foreach 
+// TODO: learn more about forEach, maybe replace array with object
 var qArray = [question1, question2, question3, completedPage ]; //create array of question objects
 var qArrayIndex = 0; //init index to 0
 
@@ -135,12 +135,20 @@ qHeadEl.addEventListener("click", function (event) {
 })
 
 
+console.log(qArrayIndex)
 // event listener for button presses in q-card
 cardEl.addEventListener("click", function (event){
     if (event.target.matches("button")) {
         alterQCard()
+        console.log(qArray[qArrayIndex-1].rightAnswer)
+        if (event.target.matches(qArray[qArrayIndex-1].rightAnswer)){ //subtract points for a wrong answer
+            console.log("right answer")
+        }
+        else {
+            secondsLeft = secondsLeft -10
+        }
         if (qArrayIndex < qArray.length-1){ // if it is not the last index in the qArray add one to the index
-           qArrayIndex++
+            qArrayIndex++
         } else{  // if it is the last index in the qArray
             score = secondsLeft //assign a score variable
             // timerEl.style = "visibility: hidden;" //hide timer when finished so it doesnt go down forever
@@ -149,6 +157,7 @@ cardEl.addEventListener("click", function (event){
             formEl.style = "display: block;" // reveal form element
             stopTimer()
         }
+        
     }
 })
 
