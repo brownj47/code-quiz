@@ -53,15 +53,10 @@ function timerSet(){ // a function that decrements the timer counter and writes 
         secondsLeft--
         if (secondsLeft === 0){ //game over state
             clearInterval(timer)
-            qEl.textContent = "Game Over"
-            for (i=0; i < btns.length; i++) { //make all buttons display none
-                btns[i].setAttribute("style", "display: none;")
-            }
         }
         timerEl.textContent = `Time left: ${secondsLeft} seconds`
     }, 1000)   
 }
-timerSet() // call timer 
 
 // create question objects
 var question1 = {
@@ -121,27 +116,27 @@ function alterQCard() { // alter the contents of the q card
 }
 
 
-//set event listener for start button\
+//set event listener for start button
 qHeadEl.addEventListener("click", function (event) {
     if (event.target.matches("button")) {
         alterQCard()
         qArrayIndex++
         event.target.setAttribute("style", "display: none;")
+        timerSet() // call timer 
     }
 })
 
 
 // event listener for button presses in q-card
 cardEl.addEventListener("click", function (event){
-
     if (event.target.matches("button")) {
         alterQCard()
         if (qArrayIndex < qArray.length-1){ // if it is not the last index in the qArray add one to the index
            qArrayIndex++
-    
         } else{  // if it is the last index in the qArray
-    
             score = secondsLeft //assign a score variable
+            timerEl.style = "visibility: hidden;" //hide timer when finished so it doesnt go down forever
+
             completedPage.p = `Your final score is: ${score}` //alter object to reflect this
             pEl.textContent = qArray[qArrayIndex].p; // update p element
             formEl.style = "display: block;" // reveal form element
@@ -197,4 +192,13 @@ clearBtn.addEventListener("click", function() { //clear highscores
     for (i=0; i < listItems.length; i++){ //remove the li elements from the page
         listItems[i].remove()
     }
+})
+
+goBackBtn.addEventListener("click", function(){
+    qArrayIndex = 0;
+    secondsLeft = 30;
+    hiScrEl.style = "display: none;";
+    alterQCard()
+    timerSet()
+
 })
