@@ -2,6 +2,9 @@
 //create timer counter
 var secondsLeft = 30; 
 
+//create timer variable
+var timer;
+
 // create score counter
 var score = 0;
 
@@ -52,13 +55,16 @@ var initialText =  document.querySelector("#initial-box").value.trim();
 
 
 function timerSet(){ // a function that decrements the timer counter and writes to the timer element 
-    var timer = setInterval( function (){
+    timer = setInterval( function (){
         secondsLeft--
         if (secondsLeft === 0){ //game over state
-            clearInterval(timer)
+            stopTimer()
         }
         timerEl.textContent = `Time left: ${secondsLeft} seconds`
     }, 1000)   
+}
+function stopTimer(){
+    clearInterval(timer)
 }
 
 // create question objects
@@ -104,7 +110,6 @@ var completedPage = {
     displayStatus: "display: none",
 }
 // foreach 
-var qArray = [question1, question2, question3, ]; //create array of question objects
 var qArray = [question1, question2, question3, completedPage ]; //create array of question objects
 var qArrayIndex = 0; //init index to 0
 
@@ -138,11 +143,11 @@ cardEl.addEventListener("click", function (event){
            qArrayIndex++
         } else{  // if it is the last index in the qArray
             score = secondsLeft //assign a score variable
-            timerEl.style = "visibility: hidden;" //hide timer when finished so it doesnt go down forever
-
+            // timerEl.style = "visibility: hidden;" //hide timer when finished so it doesnt go down forever
             completedPage.p = `Your final score is: ${score}` //alter object to reflect this
             pEl.textContent = qArray[qArrayIndex].p; // update p element
             formEl.style = "display: block;" // reveal form element
+            stopTimer()
         }
     }
 })
@@ -201,8 +206,10 @@ goBackBtn.addEventListener("click", function(){
     qArrayIndex = 0;
     secondsLeft = 30;
     hiScrEl.style = "display: none;";
-    alterQCard()
-    timerSet()
+    pEl.textContent = " Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by 10s";
+    qEl.textContent = "Coding Quiz Challenge";
+    timerEl.style = "display: block;";
+    strtBtn.style = "display: inline-block;";
 })
 
 highScoreLink.addEventListener("click", function(){
