@@ -38,4 +38,4 @@ section {
 
 #submit-form, #high-score-card{ /* hide elements at page load */
     display: none;
-} 
+}

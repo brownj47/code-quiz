@@ -30,7 +30,7 @@ var btn3El =  document.querySelector("#button-3")
 var btn4El =  document.querySelector("#button-4")
 var subBtn = document.querySelector("#submit-btn")
 var goBackBtn = document.querySelector("#go-back")
-var clearBtn = document.querySelector("#hclear-high-scores")
+var clearBtn = document.querySelector("#clear-high-scores")
 
 
 // grab form element
@@ -41,6 +41,11 @@ var hiScrEl = document.querySelector("#high-score-card")
 
 // grab ol element
 var scoreListEl = document.querySelector("#score-list")
+
+//grab value of input
+var initialText =  document.querySelector("#initial-box").value.trim(); 
+
+
 
 
 function timerSet(){ // a function that decrements the timer counter and writes to the timer element 
@@ -67,6 +72,7 @@ var question1 = {
     D: "4. numbers",
     p: "", 
     displayStatus: "display: block",
+    rightAnswer : "button-3"
 }
 
 var question2 = {
@@ -77,15 +83,17 @@ var question2 = {
     D: "4. square brackets",
     p: "", 
     displayStatus: "display: block",
+    rightAnswer : "button-2"
 }
 var question3 = {
-    questionText: "A very useful tol used durong development for printing content to the debugger is: " ,
+    questionText: "A very useful tool used during development for printing content to the debugger is: " ,
     A: "1. JavaScript",
     B: "2. terminal/bash",
     C: "3. for loops",
     D: "4. console.log",
     p: "", 
     displayStatus: "display: block",
+    rightAnswer : "button-4"
 }
 
 var completedPage = {
@@ -141,9 +149,52 @@ cardEl.addEventListener("click", function (event){
     }
 })
 
+
+//create array to store scores in local storage
+var highScores = [];
+
+function setScoreList(){
+    localStorage.setItem("highScores", JSON.stringify(highScores)) //update local storage
+}
+
+function renderScoreList(){
+    for (i=0; i < highScores.length; i++) { //create lis
+        var scoreEl = document.createElement("li")
+        scoreEl.textContent = highScores[i]
+        scoreEl.className = "score-item" //assign al lis to a class
+        scoreListEl.append(scoreEl)//append li to an ol on the page
+    }
+}
+
 // event listener for the submit button
 subBtn.addEventListener("click", function (event) {
-    event.preventDefault()
+    event.preventDefault();
+    
+    qEl.textContent = "High Scores:"; // set h2 el
+    pEl.textContent = ""; //empty p el
+    formEl.style = "display: none;"; // hide form element
+    hiScrEl.style = "display: block;";// reveal high score card
 
-}) 
+    var storedScores =JSON.parse(localStorage.getItem("highScores")) //pull from local storage, if there is something there, set the array to it
+    if (storedScores !==null){
+        highScores = storedScores
+    }
 
+    //push input to highScores
+    var initialText =  document.querySelector("#initial-box")
+    initialText = initialText.value;  //grab  value of input
+    initialText = `${initialText} - ${score}`
+    highScores.push(initialText)
+    setScoreList() // store the item
+    renderScoreList() // render list
+
+}) ;
+
+clearBtn.addEventListener("click", function() { //clear highscores
+    highScores = [] // make highscores empty
+    setScoreList() //clear local storage
+    var listItems =  document.querySelectorAll(".score-item") //grab all lis
+    for (i=0; i < listItems.length; i++){ //remove the li elements from the page
+        listItems[i].remove()
+    }
+})
