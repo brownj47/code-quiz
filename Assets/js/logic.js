@@ -1,6 +1,7 @@
 
 //create timer counter
-var secondsLeft = 40; 
+var timerResetVal = 40;
+var secondsLeft = timerResetVal; 
 
 //create timer variable
 var timer;
@@ -52,7 +53,8 @@ var scoreListEl = document.querySelector("#score-list")
 var initialText =  document.querySelector("#initial-box").value.trim(); 
 
 
-
+//set timer text on load
+timerEl.textContent = `Time left: ${timerResetVal} seconds`
 
 function timerSet(){ // a function that decrements the timer counter and writes to the timer element 
     timer = setInterval( function (){
@@ -221,7 +223,7 @@ clearBtn.addEventListener("click", function() { //clear highscores
 
 goBackBtn.addEventListener("click", function(){
     qArrayIndex = 0;
-    secondsLeft = 30;
+    secondsLeft = timerResetVal;
     hiScrEl.style = "display: none;";
     pEl.textContent = " Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by 10s";
     qEl.textContent = "Coding Quiz Challenge";
