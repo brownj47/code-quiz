@@ -31,6 +31,9 @@ var btn4El =  document.querySelector("#button-4")
 var subBtn = document.querySelector("#submit-btn")
 var goBackBtn = document.querySelector("#go-back")
 var clearBtn = document.querySelector("#clear-high-scores")
+var highScoreLink = document.querySelector("#view-high-scores")
+var strtBtn = document.querySelector("#strt-btn")
+
 
 
 // grab form element
@@ -200,5 +203,18 @@ goBackBtn.addEventListener("click", function(){
     hiScrEl.style = "display: none;";
     alterQCard()
     timerSet()
+})
 
+highScoreLink.addEventListener("click", function(){
+    qEl.textContent = "High Scores:"; // set h2 el
+    pEl.textContent = ""; //empty p el
+    formEl.style = "display: none;"; // hide form element
+    hiScrEl.style = "display: block;";// reveal high score card
+    strtBtn.style =  "display:none;"
+
+    var storedScores =JSON.parse(localStorage.getItem("highScores")) //pull from local storage, if there is something there, set the array to it
+    if (storedScores !==null){
+        highScores = storedScores
+    }
+    renderScoreList()
 })
