@@ -18,16 +18,24 @@ main {
     background-color: blueviolet;
     display: flex;
     justify-content: center;
+    flex-direction: column;
     align-items: center;
+    text-align: center;
 }
 #q-card {
     max-width: 50%;
+    display: none;
 }
+
+#q-header {
+    max-width: 50%;
+}
+
 section {
     background-color: rgb(213, 194, 194);
     padding: 10px;
 }
 
-#button-2, #button-3, #button-4, #submit-form{ /* hide elements at page load */
+#submit-form, #high-score-card{ /* hide elements at page load */
     display: none;
-}
+} 

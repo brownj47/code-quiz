@@ -16,19 +16,30 @@
     </header>
 
     <main>
-        <section id="q-card">
+        <section id="q-header">
             <h2 id="question">Coding Quiz Challenge</h2>
-            <p id="q-subtext"> Try to answer the following code-realted questions within the time limit. Keep in mind that incorrecnt answers will penalize your score/time by 10s</p>
+            <p id="q-subtext"> Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by 10s</p>
+            <button>Start</button> 
+        </section>
 
-            <button class="mult-choice-opt"id="button-1">Start</button>
+        <section id="q-card">
+
+            <button class="mult-choice-opt"id="button-1">Option A</button>
             <button class="mult-choice-opt"id="button-2">Option B</button>
             <button class="mult-choice-opt"id="button-3">Option C</button>
             <button class="mult-choice-opt"id="button-4">Option D</button>
 
-            <form id="submit-form" action="#">
-                Enter Initials: <input type="text">
-                <button id="submit-btn">Submit</button>
-            </form>
+        </section>
+
+        <form id="submit-form" action="#">
+            Enter Initials: <input type="text">
+            <button id="submit-btn">Submit</button>
+        </form>
+        <!-- new section-->
+        <section id="high-score-card">
+            <ol id="score-list"></ol>
+            <button id="go-back">Go Back</button>
+            <button id="clear-high-scores">Clear HighScores</button>
         </section>
     </main>
     <script src="./Assets/js/logic.js"></script>
