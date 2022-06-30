@@ -145,6 +145,16 @@ qHeadEl.addEventListener("click", function (event) {
 cardEl.addEventListener("click", function (event){
     if (event.target.matches("button")) {
         alterQCard()
+        console.log(qArray[qArrayIndex-1].rightAnswer)
+        console.log(qArray[qArrayIndex-1])
+        console.log(qArrayIndex-1)
+        if (event.target.matches(qArray[qArrayIndex-1].rightAnswer)){ //subtract points for a wrong answer
+            console.log("right answer")
+        } else {
+            secondsLeft = secondsLeft -5
+            
+        }
+
         if (qArrayIndex < qArray.length-1){ // if it is not the last index in the qArray add one to the index
             qArrayIndex++
         } else{  // if it is the last index in the qArray
@@ -154,13 +164,7 @@ cardEl.addEventListener("click", function (event){
             formEl.style = "display: block;" // reveal form element
             stopTimer()
         }
-        if (event.target.matches(qArray[qArrayIndex-1].rightAnswer)){ //subtract points for a wrong answer
-            console.log("right answer")
-        }
-        else {
-            secondsLeft = secondsLeft -10
-        }
-        console.log(qArray[qArrayIndex-1].rightAnswer)
+        
     }
 })
 
