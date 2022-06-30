@@ -10,12 +10,11 @@ a {
 header {
     background-color: rgb(98, 98, 222);
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     width: 100%;
 }
 main {
-    background-color: blueviolet;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -32,10 +31,19 @@ main {
 }
 
 section {
-    background-color: rgb(213, 194, 194);
     padding: 10px;
 }
 
 #submit-form, #high-score-card{ /* hide elements at page load */
     display: none;
+}
+
+
+@media screen and (max-width : 560px) {
+    header {
+        flex-direction: column;
+    }
+    header h1 {
+        order: -1;
+    }
 }

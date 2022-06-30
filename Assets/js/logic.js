@@ -1,6 +1,6 @@
 
 //create timer counter
-var secondsLeft = 30; 
+var secondsLeft = 40; 
 
 //create timer variable
 var timer;
@@ -57,8 +57,14 @@ var initialText =  document.querySelector("#initial-box").value.trim();
 function timerSet(){ // a function that decrements the timer counter and writes to the timer element 
     timer = setInterval( function (){
         secondsLeft--
-        if (secondsLeft === 0){ //game over state
+        if (secondsLeft <= 0){ //game over state
             stopTimer()
+            score = secondsLeft
+            qEl.textContent = "All Done! You ran out out time/points"
+            completedPage.p = `Your final score is: ${score}` //alter object to reflect this
+            pEl.textContent = completedPage.p; // update p element
+            cardEl.style = "display: none;" // hide buttons
+            formEl.style = "display: block;" // reveal form element
         }
         timerEl.textContent = `Time left: ${secondsLeft} seconds`
     }, 1000)   
@@ -87,7 +93,7 @@ var question2 = {
     D: "4. square brackets",
     p: "", 
     displayStatus: "display: block",
-    rightAnswer : "#button-2"
+    rightAnswer : "#button-3"
 }
 var question3 = {
     questionText: "A very useful tool used during development for printing content to the debugger is: " ,
@@ -135,29 +141,26 @@ qHeadEl.addEventListener("click", function (event) {
 })
 
 
-console.log(qArrayIndex)
-// event listener for button presses in q-card
+// event listener for button presses in q-card,  q array index needs to be offest by 1 to allow for the start button to make it's change, otherwise the first card needs to be clicked twice
 cardEl.addEventListener("click", function (event){
     if (event.target.matches("button")) {
         alterQCard()
-        console.log(qArray[qArrayIndex-1].rightAnswer)
+        if (qArrayIndex < qArray.length-1){ // if it is not the last index in the qArray add one to the index
+            qArrayIndex++
+        } else{  // if it is the last index in the qArray
+            score = secondsLeft //assign a score variable
+            completedPage.p = `Your final score is: ${score}` //alter object to reflect this
+            pEl.textContent = qArray[qArrayIndex].p; // update p element
+            formEl.style = "display: block;" // reveal form element
+            stopTimer()
+        }
         if (event.target.matches(qArray[qArrayIndex-1].rightAnswer)){ //subtract points for a wrong answer
             console.log("right answer")
         }
         else {
             secondsLeft = secondsLeft -10
         }
-        if (qArrayIndex < qArray.length-1){ // if it is not the last index in the qArray add one to the index
-            qArrayIndex++
-        } else{  // if it is the last index in the qArray
-            score = secondsLeft //assign a score variable
-            // timerEl.style = "visibility: hidden;" //hide timer when finished so it doesnt go down forever
-            completedPage.p = `Your final score is: ${score}` //alter object to reflect this
-            pEl.textContent = qArray[qArrayIndex].p; // update p element
-            formEl.style = "display: block;" // reveal form element
-            stopTimer()
-        }
-        
+        console.log(qArray[qArrayIndex-1].rightAnswer)
     }
 })
 
@@ -199,7 +202,7 @@ subBtn.addEventListener("click", function (event) {
     //push input to highScores
     var initialText =  document.querySelector("#initial-box")
     initialText = initialText.value;  //grab  value of input
-    initialText = `${initialText} - ${score}`
+    initialText = `${initialText} with ${score} points`
     highScores.push(initialText)
     setScoreList() // store the item
     renderScoreList() // render list
