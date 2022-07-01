@@ -51,4 +51,7 @@ section {
     header h1 {
         order: -1;
     }
+    #q-header {
+        max-width: auto;
+    }
 }
