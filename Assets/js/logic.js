@@ -158,9 +158,8 @@ cardEl.addEventListener("click", function (event){
         console.log(qArray[qArrayIndex-1].rightAnswer)
         console.log(qArray[qArrayIndex-1])
         console.log(qArrayIndex-1)
-        if (event.target.matches(qArray[qArrayIndex-1].rightAnswer)){ //subtract points for a wrong answer
-            console.log("right answer")
-            rightWrongEl.textContent =  "Right!"
+        if (event.target.matches(qArray[qArrayIndex-1].rightAnswer)){ //subtract points for a wrong answer, give a visual indicator or correctness
+            rightWrongEl.textContent =  "Right!" 
             rightWrongEl.style =  "background-color: green;"
             timeText()
         } else {
